@@ -1,6 +1,6 @@
 const express = require("express");
 // import your mongoose
-
+const mongoose = required("express")
 // install your mongoose
 
 const app = express();
@@ -12,7 +12,15 @@ app.use((req, res, next) => {
 
 // create a studentSchema with name, grade, advisory, and fav subject
 
+const studentSchema = new mongoose.Schema({
+  name : {type: String, required: true },
+  grade : {type: Number, defualt: 9},
+  favSub : {type: String, required: true }
+})
+
 // connect your schema to a model called Student
+
+const Student = mongoose.model("Student", studentSchema, "Students")
 
 // create a route hanlder for /g12 that returns every student in grade 12
 
@@ -26,8 +34,22 @@ app.use((req, res, next) => {
 // Save a document to mongoDB about yourself 
 // (OYO) save 2 more documents about students at your table
 // make sure to start your server 
+await function startServer() {
+  await mongoose.connect("mongodb+srv://SE12:CSH2025@adamo8.b6ydo.mongodb.net/?retryWrites=true&w=majority&appName=AdamO8")
 
+  const me = await new Student({
+    name: "Adam",
+    grade: 12,
+    favSub: "ApCalc"
+  })
+
+
+  app.listen(3000, () => {
+    console.log("server running")
+  })
+
+}
 
 // call startServer
-
+startServer()
 // if you finished all the excersizes try these 
