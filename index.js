@@ -1,6 +1,6 @@
 const express = require("express");
 // import your mongoose
-const mongoose = required("express")
+const mongoose = require("mongoose")
 // install your mongoose
 
 const app = express();
@@ -14,7 +14,7 @@ app.use((req, res, next) => {
 
 const studentSchema = new mongoose.Schema({
   name : {type: String, required: true },
-  grade : {type: Number, defualt: 9},
+  grade : {type: Number, default: 9},
   favSub : {type: String, required: true }
 })
 
@@ -34,7 +34,7 @@ const Student = mongoose.model("Student", studentSchema, "Students")
 // Save a document to mongoDB about yourself 
 // (OYO) save 2 more documents about students at your table
 // make sure to start your server 
-await function startServer() {
+async function startServer() {
   await mongoose.connect("mongodb+srv://SE12:CSH2025@adamo8.b6ydo.mongodb.net/?retryWrites=true&w=majority&appName=AdamO8")
 
   const me = await new Student({
