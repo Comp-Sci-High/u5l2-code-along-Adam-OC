@@ -1,6 +1,7 @@
 const express = require("express");
 // import your mongoose
 const mongoose = require("mongoose")
+const mongoose = require("mongoose")
 // install your mongoose
 
 const app = express();
@@ -14,7 +15,7 @@ app.use((req, res, next) => {
 
 const studentSchema = new mongoose.Schema({
   name : {type: String, required: true },
-  grade : {type: Number, defualt: 9},
+  grade : {type: Number, default: 9},
   favSub : {type: String, required: true }
 })
 
@@ -29,6 +30,11 @@ app.get("/g12", async (req,res) =>{
   res.json(students)
 }) 
 
+app.get("/g12", async (req,res) =>{ 
+  const students = await Student.find({grade: 12})
+  res.json(students)
+}) 
+
 // (OYO) create a route hanlder for /me that returns yourself without using your name in the query
 
 app.get("/me", async (req,res) => {
@@ -36,7 +42,17 @@ app.get("/me", async (req,res) => {
   res.json(Adam)
 })
 
+app.get("/me", async (req,res) => {
+  const Adam = await Student.findOne({grade:12},{favSub:"APCalc"})
+  res.json(Adam)
+})
+
 // (OYO) create a route hanlder for /friend that returns someone at your table using their name in the query
+
+app.get("/friend", async (req,res) =>{
+  const friend = await Student.findOne({name:"Oscar"})
+  res.json(friend)
+})
 
 app.get("/friend", async (req,res) =>{
   const friend = await Student.findOne({name:"Oscar"})
